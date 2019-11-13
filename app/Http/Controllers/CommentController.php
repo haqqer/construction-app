@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\Comment;
 use Illuminate\Http\Request;
 
-class PostController extends RespondController
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +14,7 @@ class PostController extends RespondController
      */
     public function index()
     {
-        try {
-            $posts = Post::with('project')->get();
-            return $this->sendResponse(true, "get all posts", 200, $posts);
-        } catch (Exception $e) {
-            return $this->sendResponse(false, "error get all posts", 500, $e);
-        }
+        //
     }
 
     /**
@@ -40,17 +35,16 @@ class PostController extends RespondController
      */
     public function store(Request $request)
     {
-        $post = Post::create($request->all());
-        return $this->sendResponse(true, "create post", 201, $post);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Comment $comment)
     {
         //
     }
@@ -58,10 +52,10 @@ class PostController extends RespondController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Comment $comment)
     {
         //
     }
@@ -70,24 +64,22 @@ class PostController extends RespondController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Comment $comment)
     {
-        $post->update($request->all());
-        return $this->sendResponse(true, "update post", 200, $post);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Comment $comment)
     {
-        $post->delete();
-        return $this->sendResponse(true, "delete post", 204, $post);
+        //
     }
 }

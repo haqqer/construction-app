@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
+use Exception;
 
-class ProjectController extends Controller
+class ProjectController extends RespondController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,12 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Project::all();
+        try {
+            $projects = Project::with('posts')->get();
+            return $this->sendResponse(true, "get all projects", 200, $projects);
+        } catch (Exception $e) {
+            return $this->sendResponse(false, "error get all projects", 500, $e);
+        }
     }
 
     /**
@@ -35,7 +41,8 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $project = Project::create($request->all());
+        return $this->sendResponse(true, "create project", 201, $project);
     }
 
     /**
@@ -69,7 +76,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $project->update($request->all());
+        return $this->sendResponse(true, "update project", 200, $project);
     }
 
     /**
@@ -80,6 +88,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        // $project = Project::findOrFail($id);
+        $project->delete();
+        return $this->sendResponse(true, "delete project", 204, $project);
     }
 }
