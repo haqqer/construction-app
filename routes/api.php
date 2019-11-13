@@ -31,7 +31,7 @@ Route::group([
     Route::post('me', 'AuthController@me');
 });
 
-Route::middleware('jwt.verify')->group(function () {
+Route::middleware(['jwt.verify', 'cors'])->group(function () {
     Route::resource('projects', 'ProjectController');
     Route::resource('posts', 'PostController');
     Route::resource('comments', 'CommentController');
