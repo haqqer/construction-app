@@ -29,9 +29,10 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
+
 });
 
-Route::middleware('jwt.verify')->group(function () {
-    Route::resource('projects', 'ProjectController');
-    Route::resource('posts', 'PostController');
+Route::prefix('projects')->group(function () {
+    Route::get('/', 'ProjectController@index');
+    Route::get('/', 'ProjectController@index');
 });

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 
-class PostController extends RespondController
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +14,7 @@ class PostController extends RespondController
      */
     public function index()
     {
-        try {
-            $posts = Post::with('project')->get();
-            return $this->sendResponse(true, "get all posts", 200, $posts);
-        } catch (Exception $e) {
-            return $this->sendResponse(false, "error get all posts", 500, $e);
-        }
+        //
     }
 
     /**
@@ -40,8 +35,7 @@ class PostController extends RespondController
      */
     public function store(Request $request)
     {
-        $post = Post::create($request->all());
-        return $this->sendResponse(true, "create post", 201, $post);
+        //
     }
 
     /**
@@ -75,8 +69,7 @@ class PostController extends RespondController
      */
     public function update(Request $request, Post $post)
     {
-        $post->update($request->all());
-        return $this->sendResponse(true, "update post", 200, $post);
+        //
     }
 
     /**
@@ -87,7 +80,6 @@ class PostController extends RespondController
      */
     public function destroy(Post $post)
     {
-        $post->delete();
-        return $this->sendResponse(true, "delete post", 204, $post);
+        //
     }
 }

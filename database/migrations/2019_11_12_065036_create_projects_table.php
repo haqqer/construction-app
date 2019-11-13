@@ -21,7 +21,7 @@ class CreateProjectsTable extends Migration
             $table->date('end');
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
-            $table->integer('photo_id')->nullable();
+            $table->string('photo_id')->nullable();
 
             $table->timestamps();
         });
