@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Project;
 use Illuminate\Http\Request;
 use Exception;
+use JWTAuth;
 
 class ProjectController extends RespondController
 {
@@ -16,8 +17,12 @@ class ProjectController extends RespondController
     public function index()
     {
         try {
-            $projects = Project::with('posts')->get();
-            return $this->sendResponse(true, "get all projects", 200, $projects);
+            $token = JWTAuth::getToken();
+            // $user = JWTAuth::getPayload($token)->toArray();
+            $user = JWTAuth::toUser($token);
+            // print_r($user);
+            $projects = Project::with('posts')->where('user_id', $user->id)->get();
+            return $this->sendResponse(true, "get all projects", 200, ['projects' => $projects, 'token' => $user]);
         } catch (Exception $e) {
             return $this->sendResponse(false, "error get all projects", 500, $e);
         }
