@@ -34,4 +34,5 @@ Route::group([
 Route::middleware('jwt.verify')->group(function () {
     Route::resource('projects', 'ProjectController');
     Route::resource('posts', 'PostController');
+    Route::resource('comments', 'CommentController');
 });
