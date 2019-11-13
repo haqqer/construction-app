@@ -15,7 +15,7 @@ class PostController extends RespondController
     public function index()
     {
         try {
-            $posts = Post::with('project')->get();
+            $posts = Post::with(['project', 'user'])->get();
             return $this->sendResponse(true, "get all posts", 200, $posts);
         } catch (Exception $e) {
             return $this->sendResponse(false, "error get all posts", 500, $e);
