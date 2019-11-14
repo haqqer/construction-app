@@ -9,7 +9,7 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class AuthController extends Controller
+class AuthController extends RespondController
 {
     public function __construct() 
     {
@@ -46,7 +46,9 @@ class AuthController extends Controller
         {
             return $this->respondWithToken($token);
         }
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return $this->sendResponse(true, "Login Failed", 402, [
+            "error" => "Unauthorized"
+        ]);
     }
 
     public function me()
@@ -58,16 +60,21 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return $this->sendResponse(true, "Logout success", 200, {});
     }
 
     protected function respondWithToken($token)
     {
-        return response()->json([
+        return $this->sendResponse(true, "login success", 200, [
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->factory()->getTTL() * 60
         ]);
+        // return response()->json([
+        //     'access_token' => $token,
+        //     'token_type' => 'bearer',
+        //     'expires_in' => $this->guard()->factory()->getTTL() * 60
+        // ]);
     }
 
     public function guard()
