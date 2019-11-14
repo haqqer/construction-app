@@ -21,7 +21,7 @@ class ProjectController extends RespondController
             // $user = JWTAuth::getPayload($token)->toArray();
             $user = JWTAuth::toUser($token);
             // print_r($user);
-            $projects = Project::with('posts')->where('user_id', $user->id)->get();
+            $projects = Project::with('posts')->get();
             return $this->sendResponse(true, "get all projects", 200, ['projects' => $projects, 'token' => $user]);
         } catch (Exception $e) {
             return $this->sendResponse(false, "error get all projects", 500, $e);
