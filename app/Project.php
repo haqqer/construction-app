@@ -10,6 +10,12 @@ class Project extends Model
         'name','description','start','end','latitude','longitude','photo_id'
     ];
 
+
+    public function photos()
+    {
+        return $this->hasMany('App\Photo');
+    }
+
     public function posts() 
     {
         return $this->hasMany('App\Post');

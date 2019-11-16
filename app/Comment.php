@@ -10,6 +10,11 @@ class Comment extends Model
         'post_id', 'user_id', 'comment', 'photo_id', 'status'
     ];
 
+    public function photos()
+    {
+        return $this->hasMany('App\Photo');
+    }
+    
     public function user()
     {
         return $this->belongsTo('App\User');

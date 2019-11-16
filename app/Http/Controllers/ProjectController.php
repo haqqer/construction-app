@@ -22,7 +22,8 @@ class ProjectController extends RespondController
             $user = JWTAuth::toUser($token);
             // print_r($user);
             $projects = Project::with('posts')->get();
-            return $this->sendResponse(true, "get all projects", 200, ['projects' => $projects, 'token' => $user]);
+            $counts = $this->countData($projects);
+            return $this->sendResponse(true, "get all projects", 200, ['projects' => $projects, 'counts' => $counts, 'token' => $user]);
         } catch (Exception $e) {
             return $this->sendResponse(false, "error get all projects", 500, $e);
         }
@@ -96,5 +97,10 @@ class ProjectController extends RespondController
         // $project = Project::findOrFail($id);
         $project->delete();
         return $this->sendResponse(true, "delete project", 204, $project);
+    }
+
+    public function filter() 
+    {
+        
     }
 }
