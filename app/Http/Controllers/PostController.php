@@ -90,4 +90,59 @@ class PostController extends RespondController
         $post->delete();
         return $this->sendResponse(true, "delete post", 204, $post);
     }
+
+    public function filter(Request $request) 
+    {
+        if($request->query('name') && $request->query('description') && $request->query('status'))
+        {
+            $name = strtolower($request->query('name'));
+            $description = strtolower($request->query('description'));
+            $status = strtolower($request->query('status'));
+            $match = [['name', 'like', '%'.$name.'%'], ['description', 'like', '%'.$description.'%'], ['status', '=', $status]];
+            $result = Post::where($match)->get();
+        }
+        else if($request->query('title'))
+        {
+            $value = strtolower($request->query('title'));
+            $result = Post::where('title', $value)->orWhere('title', 'like', '%'.$value.'%')->get();
+        }
+        else if($request->query('description'))
+        {
+            $value = strtolower($request->query('description'));
+            $result = Post::where('description', $value)->orWhere('description', 'like', '%'.$value.'%')->get();
+        }
+        else if($request->query('type'))
+        {
+            $value = strtolower($request->query('type'));
+            $result = Post::where('type', $value)->orWhere('type', $value)->get();            
+        }
+        else if($request->query('status'))
+        {
+            $value = strtolower($request->query('status'));
+            $result = Post::where('status', $value)->get();            
+        }
+        else 
+        {
+            return $this->index();
+        }
+        return $this->sendResponse(true, "count project", 200, $result);
+    }
+
+    public function count(Request $request)
+    {
+        if($request->query('status'))
+        {
+            $result = Post::where('status', $request->query('status'))->get();
+        }
+        else if($request->query('type'))
+        {
+            $result = Post::where('type', $request->query('type'))->get();
+        }
+        else 
+        {
+            $result = Post::all();
+        }
+        $count = count($result);
+        return $this->sendResponse(true, "count post", 200, ['count' => $count]);
+    }
 }

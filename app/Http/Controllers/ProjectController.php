@@ -102,7 +102,15 @@ class ProjectController extends RespondController
 
     public function filter(Request $request) 
     {
-        if($request->query('name'))
+        if($request->query('name') && $request->query('description') && $request->query('status'))
+        {
+            $name = strtolower($request->query('name'));
+            $description = strtolower($request->query('description'));
+            $status = strtolower($request->query('status'));
+            $match = [['name', 'like', '%'.$name.'%'], ['description', 'like', '%'.$description.'%'], ['status', '=', $status]];
+            $result = Project::where($match)->get();
+        }
+        else if($request->query('name'))
         {
             $value = strtolower($request->query('name'));
             $result = Project::where('name', $value)->orWhere('name', 'like', '%'.$value.'%')->get();
@@ -112,12 +120,10 @@ class ProjectController extends RespondController
             $value = strtolower($request->query('description'));
             $result = Project::where('description', $value)->orWhere('description', 'like', '%'.$value.'%')->get();            
         }
-        else if($request->query('name') && $request->query('description'))
+        else if($request->query('status'))
         {
-            $name = strtolower($request->query('name'));
-            $description = strtolower($request->query('description'));
-            $match = ['name' => $name, 'description' => $description];
-            $result = Project::where($match)->orWhere('name', 'like', '%'.$value.'%')->get();           
+            $value = strtolower($request->query('status'));
+            $result = Project::where('status', $value)->get();            
         }
         else 
         {
