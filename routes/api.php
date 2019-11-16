@@ -35,4 +35,5 @@ Route::middleware(['jwt.verify', 'cors'])->group(function () {
     Route::resource('projects', 'ProjectController');
     Route::resource('posts', 'PostController');
     Route::resource('comments', 'CommentController');
+    Route::resource('photos', 'PhotoController');
 });
