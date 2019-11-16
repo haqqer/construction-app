@@ -32,8 +32,15 @@ Route::group([
 });
 
 Route::middleware(['jwt.verify', 'cors'])->group(function () {
+    // Projects Endpoint
+    Route::get('projects/filter', 'ProjectController@filter');
+    Route::get('projects/count', 'ProjectController@count');
     Route::resource('projects', 'ProjectController');
+    // Posts Endpoint
+    Route::get('posts/filter', 'PostController@filter');
+    Route::get('posts/count', 'PostController@count');
     Route::resource('posts', 'PostController');
+    // Comments Endpoint
     Route::resource('comments', 'CommentController');
     Route::resource('photos', 'PhotoController');
 });
