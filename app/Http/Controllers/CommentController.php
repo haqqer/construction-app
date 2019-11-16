@@ -15,7 +15,7 @@ class CommentController extends RespondController
     public function index()
     {
         try {
-            $comments = Comment::with(['post'])->get();
+            $comments = Comment::with(['post'])->paginate();
             return $this->sendResponse(true, "get all comments", 200, $comments);
         } catch (Exception $e) {
             return $this->sendResponse(false, "error get all comments", 500, $e);
