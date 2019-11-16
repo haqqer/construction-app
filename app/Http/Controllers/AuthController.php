@@ -46,7 +46,7 @@ class AuthController extends RespondController
         {
             return $this->respondWithToken($token);
         }
-        return $this->sendResponse(true, "Login Failed", 402, [
+        return $this->sendResponse(true, "Login Failed", 401, [
             "error" => "Unauthorized"
         ]);
     }
@@ -60,7 +60,7 @@ class AuthController extends RespondController
     {
         auth()->logout();
 
-        return $this->sendResponse(true, "Logout success", 200, {});
+        return $this->sendResponse(true, "Logout success", 200, "");
     }
 
     protected function respondWithToken($token)
