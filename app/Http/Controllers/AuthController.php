@@ -41,12 +41,11 @@ class AuthController extends RespondController
     public function login(Request $request) 
     {
         $credentials = $request->only('email', 'password');
-
         if($token = $this->guard()->attempt($credentials))
         {
             return $this->respondWithToken($token);
         }
-        return $this->sendResponse(true, "Login Failed", 401, [
+        return $this->sendResponse(false, "Login Failed", 401, [
             "error" => "Unauthorized"
         ]);
     }

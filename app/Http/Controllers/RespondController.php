@@ -15,4 +15,9 @@ class RespondController extends Controller
             "result" => $data
         ], $code);
    }
+
+   public function countData($data) 
+   {
+       return count($data);
+   }
 }
