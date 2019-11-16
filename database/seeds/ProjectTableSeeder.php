@@ -13,13 +13,13 @@ class ProjectTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('projects')->delete();
         DB::table('projects')->insert(
             [
                 'name' => 'Project Jalan',
                 'description' => 'Project Jalan Besar',
                 'start' => date("Y-m-d H:i:s"),
                 'end' => date("2020-01-01 12:00:00"),
+                'status' => 'undone',
                 'latitude' => 0.1,
                 'longitude' => 1.1,
                 'photo_id' => 0,
@@ -33,6 +33,7 @@ class ProjectTableSeeder extends Seeder
                 'description' => 'Project Jembatan Raya',
                 'start' => date("Y-m-d H:i:s"),
                 'end' => date("2020-02-02 12:00:00"),
+                'status' => 'undone',
                 'latitude' => 0.2,
                 'longitude' => 1.2,
                 'photo_id' => 0,
@@ -46,6 +47,7 @@ class ProjectTableSeeder extends Seeder
                 'description' => 'Project Bendungan Gede',
                 'start' => date("Y-m-d H:i:s"),
                 'end' => date("2020-03-03 12:00:00"),
+                'status' => 'done',
                 'latitude' => 0.2,
                 'longitude' => 1.2,
                 'photo_id' => 0,
