@@ -52,7 +52,7 @@ class PostController extends RespondController
      */
     public function show(Post $post)
     {
-        //
+        return $this->sendResponse(true, "show post", 200, $post);
     }
 
     /**

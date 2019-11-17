@@ -40,28 +40,28 @@ class CommentController extends RespondController
      */
     public function store(Request $request)
     {
-        $post = Comment::create($request->all());
-        return $this->sendResponse(true, "create post", 201, $post);
+        $comment = Comment::create($request->all());
+        return $this->sendResponse(true, "create comment", 201, $comment);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Comment  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $post)
+    public function show(Comment $comment)
     {
-        //
+        return $this->sendResponse(true, "show comment", 200, $comment);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Comment  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $post)
+    public function edit(Comment $comment)
     {
         //
     }
@@ -70,24 +70,24 @@ class CommentController extends RespondController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $post)
+    public function update(Request $request, Comment $comment)
     {
-        $post->update($request->all());
-        return $this->sendResponse(true, "update post", 200, $post);
+        $comment->update($request->all());
+        return $this->sendResponse(true, "update comment", 200, $comment);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comment  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $post)
+    public function destroy(Comment $comment)
     {
-        $post->delete();
-        return $this->sendResponse(true, "delete post", 204, $post);
+        $comment->delete();
+        return $this->sendResponse(true, "delete comment", 204, $comment);
     }
 }

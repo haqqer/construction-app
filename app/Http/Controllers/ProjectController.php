@@ -60,7 +60,7 @@ class ProjectController extends RespondController
      */
     public function show(Project $project)
     {
-        //
+        return $this->sendResponse(true, "show project", 200, $project);
     }
 
     /**
