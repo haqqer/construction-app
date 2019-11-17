@@ -12,10 +12,16 @@ class CommentController extends RespondController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $comments = Comment::with(['post'])->paginate();
+            if($request->query('post_id')) {
+                $comments = Comment::where('post_id', $request->query('post_id'))->paginate();    
+            }
+            else 
+            {
+                $comments = Comment::with(['post'])->paginate();
+            }
             return $this->sendResponse(true, "get all comments", 200, $comments);
         } catch (Exception $e) {
             return $this->sendResponse(false, "error get all comments", 500, $e);

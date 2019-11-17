@@ -12,10 +12,16 @@ class PostController extends RespondController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $posts = Post::with(['project', 'user'])->paginate();
+            if($request->query('project_id')) {
+                $posts = Post::with(['project', 'user'])->where('project_id', $request->query('project_id'))->paginate();    
+            }
+            else 
+            {
+                $posts = Post::with(['project', 'user'])->paginate();
+            }
             return $this->sendResponse(true, "get all posts", 200, $posts);
         } catch (Exception $e) {
             return $this->sendResponse(false, "error get all posts", 500, $e);
